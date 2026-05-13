@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"paper-reading-group.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"atom-one-light","dark":"atom-one-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":3,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="一.论文原本的架构![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png) 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MambaVision架构">
+<meta property="og:url" content="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="论文精读">
+<meta property="og:description" content="一.论文原本的架构![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png) 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260410153127015.png">
+<meta property="og:image" content="c:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png">
+<meta property="article:published_time" content="2026-05-13T12:02:51.543Z">
+<meta property="article:modified_time" content="2026-05-13T12:02:51.543Z">
+<meta property="article:tag" content="CV">
+<meta property="article:tag" content="Mamba">
+<meta property="article:tag" content="SSM">
+<meta property="article:tag" content="Transformer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260410153127015.png">
+
+
+<link rel="canonical" href="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/","path":"2026/05/13/MambaVision架构/","title":"MambaVision架构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MambaVision架构 | 论文精读</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/7.2.0/pangu.umd.js" integrity="sha256-JnmRRnJK7DC6RQJbAJb6AXOM9OmWzS6z8eYultk/48Y=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="论文精读" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">论文精读</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录与分享 · 前沿论文</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-papers"><a href="/categories/papers/" rel="section"><i class="fa fa-file-alt fa-fw"></i>papers</a></li><li class="menu-item menu-item-topics"><a href="/topics" rel="section"><i class="fa fa-layer-group fa-fw"></i>topics</a></li><li class="menu-item menu-item-members"><a href="/members" rel="section"><i class="fa fa-users fa-fw"></i>members</a></li><li class="menu-item menu-item-timeline"><a href="/timeline" rel="section"><i class="fa fa-stream fa-fw"></i>timeline</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-info-circle fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%AE%BA%E6%96%87%E5%8E%9F%E6%9C%AC%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">一.论文原本的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E9%92%88%E5%AF%B9%E5%90%84%E4%B8%AA%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">二.针对各个模块的分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-stem"><span class="nav-number">3.</span> <span class="nav-text">**1&gt;**stem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ConVBlock"><span class="nav-number">4.</span> <span class="nav-text">**2&gt;**ConVBlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MambaMixer-MLP"><span class="nav-number">5.</span> <span class="nav-text">3&gt;MambaMixer+MLP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%C2%B7%E5%AF%B9%E4%BA%8E%E5%8E%9F%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">5.1.</span> <span class="nav-text">一·对于原本数据的处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%C2%B7Mambamixer"><span class="nav-number">5.2.</span> <span class="nav-text">二·Mambamixer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="nav-number">5.2.1.</span> <span class="nav-text">初始化阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E9%98%B6%E6%AE%B5"><span class="nav-number">5.2.2.</span> <span class="nav-text">前向传播阶段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B"><span class="nav-number">6.</span> <span class="nav-text">4&gt;自注意力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.1.</span> <span class="nav-text">📎 相关论文推荐</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt=""
+      src="/images/logo.png">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">每月论文精读笔记</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.png">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="论文精读">
+      <meta itemprop="description" content="每月论文精读笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MambaVision架构 | 论文精读">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MambaVision架构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-05-13 20:02:51" itemprop="dateCreated datePublished" datetime="2026-05-13T20:02:51+08:00">2026-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/papers/" itemprop="url" rel="index"><span itemprop="name">论文精读</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>6 mins.</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p>![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png)</p>
+<p>可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解</p>
+<h2 id="二-针对各个模块的分析"><a href="#二-针对各个模块的分析" class="headerlink" title="二.针对各个模块的分析"></a>二.针对各个模块的分析</h2><p>不同参数量的里面的模块数量是不同</p>
+<table>
+<thead>
+<tr>
+<th>模型版本</th>
+<th>N1(Stage1)</th>
+<th>N2(Stage2)</th>
+<th>N3(Stage3)</th>
+<th>N4(Stage4)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MambaVision-Tiny (T)</td>
+<td>2</td>
+<td>2</td>
+<td>8</td>
+<td>2</td>
+</tr>
+<tr>
+<td>MambaVision-Small (S)</td>
+<td>2</td>
+<td>2</td>
+<td>12</td>
+<td>2</td>
+</tr>
+<tr>
+<td>MambaVision-Base (B)</td>
+<td>3</td>
+<td>4</td>
+<td>18</td>
+<td>3</td>
+</tr>
+<tr>
+<td>MambaVision-Large (L)</td>
+<td>3</td>
+<td>4</td>
+<td>24</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h2 id="1-stem"><a href="#1-stem" class="headerlink" title="**1&gt;**stem"></a>**1&gt;**stem</h2><p>茎秆层主要的目的是将原本的RGB通道图转化为后续处理的张量，同时完成下采样</p>
+<p>src中的实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self, in_chans=3, in_dim=64, dim=96):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Args:</span><br><span class="line">            in_chans: number of input channels.</span><br><span class="line">            dim: feature size dimension.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # in_dim = 1</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.proj = nn.Identity()</span><br><span class="line">        self.conv_down = nn.Sequential(</span><br><span class="line">            nn.Conv2d(in_chans, in_dim, 3, 2, 1, bias=False),</span><br><span class="line">            nn.BatchNorm2d(in_dim, eps=1e-4),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Conv2d(in_dim, dim, 3, 2, 1, bias=False),</span><br><span class="line">            nn.BatchNorm2d(dim, eps=1e-4),</span><br><span class="line">            nn.ReLU()</span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+
+<p>采用了采用了两层卷积下采样，将原本的维度从H * W * 3依次改为了H&#x2F;2 * W&#x2F;2 * C再到H&#x2F;4 * W&#x2F;4 *C</p>
+<p>其中输出的通道数由模型大小决定</p>
+<p>  indim:</p>
+<ul>
+<li>Tiny 系列：32</li>
+<li>其他系列：64</li>
+<li>dim 是基础通道数（Stage 0 的通道数）</li>
+<li>Tiny: 80</li>
+<li>Small: 96</li>
+<li>Base: 128</li>
+<li>Large: 196</li>
+</ul>
+<h2 id="2-ConVBlock"><a href="#2-ConVBlock" class="headerlink" title="**2&gt;**ConVBlock"></a>**2&gt;**ConVBlock</h2><p>stem将图片转化为张量的形式之后就进行多次卷积以及总计两次降采样，这个地方比较常见，所以不多阐述，代码展示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">def __init__(self, dim,</span><br><span class="line">             drop_path=0.,</span><br><span class="line">             layer_scale=None,</span><br><span class="line">             kernel_size=3):</span><br><span class="line">    super().__init__()</span><br><span class="line"></span><br><span class="line">    self.conv1 = nn.Conv2d(dim, dim, kernel_size=kernel_size, stride=1, padding=1)</span><br><span class="line">    self.norm1 = nn.BatchNorm2d(dim, eps=1e-5)</span><br><span class="line">    self.act1 = nn.GELU(approximate= &#x27;tanh&#x27;)</span><br><span class="line">    self.conv2 = nn.Conv2d(dim, dim, kernel_size=kernel_size, stride=1, padding=1)</span><br><span class="line">    self.norm2 = nn.BatchNorm2d(dim, eps=1e-5)</span><br><span class="line">    self.layer_scale = layer_scale</span><br><span class="line">    if layer_scale is not None and type(layer_scale) in [int, float]:</span><br><span class="line">        self.gamma = nn.Parameter(layer_scale * torch.ones(dim))</span><br><span class="line">        self.layer_scale = True</span><br><span class="line">    else:</span><br><span class="line">        self.layer_scale = False</span><br><span class="line">    self.drop_path = DropPath(drop_path) if drop_path &gt; 0. else nn.Identity()</span><br><span class="line"></span><br><span class="line">def forward(self, x):</span><br><span class="line">    input = x</span><br><span class="line">    x = self.conv1(x)</span><br><span class="line">    x = self.norm1(x)</span><br><span class="line">    x = self.act1(x)</span><br><span class="line">    x = self.conv2(x)</span><br><span class="line">    x = self.norm2(x)</span><br><span class="line">    if self.layer_scale:</span><br><span class="line">        x = x * self.gamma.view(1, -1, 1, 1)</span><br><span class="line">    x = input + self.drop_path(x)</span><br><span class="line">    return x</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-MambaMixer-MLP"><a href="#3-MambaMixer-MLP" class="headerlink" title="3&gt;MambaMixer+MLP"></a>3&gt;MambaMixer+MLP</h2><p>这个是主要的框架构成部分</p>
+<h4 id="一·对于原本数据的处理"><a href="#一·对于原本数据的处理" class="headerlink" title="一·对于原本数据的处理"></a>一·对于原本数据的处理</h4><p>输入进来的(B,L,D):L对应视觉图的H和W转为长度为L的向量（不为H*W），D为维度数，实际上对应的就是原本的通道数，经过多次卷积这个地方已经变为了512</p>
+<p>原本cnn对于图像的处理都是b*D * H *W，经过了一个window_partition函数（将原本的图像划分为一个一个窗口），然后将这个转化为了当前形状,这个在swin transformer中亦有记载</p>
+<p>args:window_size:一个窗口的大小</p>
+<p>第一个维度B:原本的batchsize* num_windows,  num_windows &#x3D; (H&#x2F;window_size)*(W&#x2F;window_size)</p>
+<p>第二个:window_size^2,即一个窗口的大小</p>
+<p>这个时候就可以进入mambamix进行处理</p>
+<h4 id="二·Mambamixer"><a href="#二·Mambamixer" class="headerlink" title="二·Mambamixer"></a>二·Mambamixer</h4><h5 id="初始化阶段"><a href="#初始化阶段" class="headerlink" title="初始化阶段"></a>初始化阶段</h5><p>因为mamba这个是分为两条路来进行的，所以在初始化的时候将原本的维度进行线性投影到原本两倍的维度，然后再进行分割开成两个，方便后面进入两个通道</p>
+<p>同时为了保证计算的效率，选择了先降秩，再升秩</p>
+<p>同时设计了一维的深度卷积来提取特征</p>
+<h5 id="前向传播阶段"><a href="#前向传播阶段" class="headerlink" title="前向传播阶段"></a>前向传播阶段</h5><p>1.首先将上面输入的(B,L,D)进行线性投影变换，得到的是(B,L,2D)，为了适配卷积，将维度转化维(B,2D,L),再使用chunk进行分割,分为两个(B,D,L),相当于对于双通道的差分</p>
+<p>2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）</p>
+<p><img data-src="C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260410153127015.png" alt="image-20260410153127015"></p>
+<p>3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的</p>
+<p><img data-src="C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png" alt="image-20260411192233518"></p>
+<p>这个是ssm的公式，其中xt为当前输入，ht为隐藏状态，并且ABCD都在训练不断训练，最后固定的参数，对于不同的输入，使用相同的记忆权重处理，而mamba的选择性ssm的BC dt[t]怎是由输入的xt动态形成的，训练的是生成BC的权重，而不直接生成,这个就是选择性ssm强的地方</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.x_proj = nn.Linear(</span><br><span class="line">            self.d_inner//2, self.dt_rank + self.d_state * 2, bias=False, **factory_kwargs</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_dbl = self.x_proj(rearrange(x, &quot;b d l -&gt; (b l) d&quot;))</span><br><span class="line">        dt, B, C =  torch.split(x_dbl, [self.dt_rank, self.d_state, self.d_state], dim=-1)</span><br></pre></td></tr></table></figure>
+
+<p>上面的是将原本的x线性映射，下面则是映射后对其进行分割为这几个参数其中d_state作为隐藏层维度的大小，就是ht的</p>
+<p>维度数，也相当于b,c的大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">y = selective_scan_fn(x, </span><br><span class="line">                              dt, </span><br><span class="line">                              A, </span><br><span class="line">                              B, </span><br><span class="line">                              C, </span><br><span class="line">                              self.D.float(), </span><br><span class="line">                              z=None, </span><br><span class="line">                              delta_bias=self.dt_proj.bias.float(), </span><br><span class="line">                              delta_softplus=True, </span><br><span class="line">                              return_last_state=None)</span><br></pre></td></tr></table></figure>
+
+<p>这个是ssm最核心的计算输出的步骤，前面实际上还有一堆rearrange的操作，这里都省去</p>
+<p>这个主要做的就是从一个序列先进行离散化，然后一个位置一个位置进行扫描，然后每个位置都会有一个ht，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for t in range(196):</span><br><span class="line">    # Step 1: 处理 dt</span><br><span class="line">    dt_t = F.softplus(dt[:, :, t] + bias)  # (1, 256)</span><br><span class="line">    # Step 2: 离散化 A</span><br><span class="line">    A_discrete = torch.exp(dt_t.unsqueeze(-1) * A)  # (1, 256, 8)    </span><br><span class="line">    # Step 3: 离散化 B</span><br><span class="line">    B_discrete = dt_t.unsqueeze(-1) * B[:, :, t].unsqueeze(1)  # (1, 256, 8)</span><br><span class="line">    </span><br><span class="line">    # Step 4: 状态更新</span><br><span class="line">    h = A_discrete * h + B_discrete * x[:, :, t].unsqueeze(-1)  # (1, 256, 8)</span><br><span class="line">    # Step 5: 输出计算</span><br><span class="line">    y[:, :, t] = torch.sum(C[:, :, t].unsqueeze(1) * h, dim=-1) + D * x[:, :, t]  # (1, 256)</span><br></pre></td></tr></table></figure>
+
+<p>所以这个里面的dt_t不同，则A,B _discreate不同，产生的h就不同，从而影响最后的输出y</p>
+<p>到这个地方实际上就得到了输出y了，但是毕竟是两个拼接出来的，实际上这个还要做一个线性转换out_proj变为传进来的样子在传回去</p>
+<p>经过了数次的Mamba之后就进入了MLP，这个使用的是timm库中导入的标准的全连接经过两层全连接以及Gelu激活，维度并没发生变化</p>
+<h2 id="4-自注意力"><a href="#4-自注意力" class="headerlink" title="4&gt;自注意力"></a>4&gt;自注意力</h2><p>这个设计的和原本的self attention相同，只不过原本的是针对全局的做自注意力，这个是针对分的窗口来做，所以不在赘述</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其中stage1,2都为CNN进行快速提取特征，而3,4都采用了相同的基本结构，只是在层数设计上有所不同</p>
+<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/papers_titles/">你的论文标题</a></li></ul>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Written by:  </strong>Ali Hatamizadeh, Jan Kautz
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/" title="MambaVision架构">https://paper-reading-group.github.io/2026/05/13/MambaVision架构/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Transformer/" rel="tag"># Transformer</a>
+              <a href="/tags/CV/" rel="tag"># CV</a>
+              <a href="/tags/Mamba/" rel="tag"># Mamba</a>
+              <a href="/tags/SSM/" rel="tag"># SSM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/05/13/papers_titles/" rel="next" title="你的论文标题">
+                  你的论文标题 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder"></span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">2k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">6 mins.</span>
+  </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
