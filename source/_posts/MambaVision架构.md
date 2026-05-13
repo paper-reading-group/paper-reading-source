@@ -5,7 +5,10 @@ tags: [CV,Mamba,SSM,Transformer]
 author: Ali Hatamizadeh, Jan Kautz
 reader: 康怡楠
 topic: 计算机视觉中的通用骨干网络设计
+cover: cover.png
 ---
+
+[原论文 PDF](paper.pdf)
 
 ## 一.论文原本的架构
 
