@@ -19,6 +19,37 @@ sidebar:
   position: left
   display: post
 
+# 页面动画
+motion:
+  enable: true
+  async: false
+  transition:
+    post_block: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
+    sidebar: fadeInUp
+
+# 封面图
+cover:
+  enable: true
+  sidebar: true
+
+# 图片缩放
+mediumzoom: true
+
+# 图片懒加载
+lazyload: true
+
+# Pangu中文优化
+pangu: true
+
+# toc目录
+toc:
+  enable: true
+  number: true
+  wrap: false
+
 # 头像
 avatar:
   url: /images/logo.png
@@ -32,6 +63,8 @@ mathjax:
 # 本地搜索
 local_search:
   enable: true
+  trigger: auto
+  top_n_per_article: 3
 
 # 代码块（使用肯定存在的 default 样式，绝不出错）
 codeblock:
@@ -51,6 +84,12 @@ reading_progress:
 # 书签
 bookmark:
   enable: true
+
+# 返回顶部按钮
+back2top:
+  enable: true
+  sidebar: true
+  scrollpercent: true
 
 # 版权声明
 creative_commons:
