@@ -1,0 +1,20 @@
+---
+title: Members
+layout: layout
+---
+<div class="page-members">
+  <h1><%= page.title %></h1>
+  <div class="member-list">
+    <% site.data.members.forEach(function(member) { %>
+    <div class="member-card">
+      <img src="<%= member.avatar || '/images/avatar.gif' %>" alt="<%= member.name %>" class="member-avatar">
+      <h3><%= member.name %><% if (member.role) { %><small>(<%= member.role %>)</small><% } %></h3>
+      <p><%= member.description %></p>
+      <div class="member-links">
+        <% if (member.github) { %><a href="https://github.com/<%= member.github %>" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><% } %>
+        <% if (member.email) { %><a href="mailto:<%= member.email %>"><i class="fas fa-envelope"></i></a><% } %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>

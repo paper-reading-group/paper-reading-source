@@ -1,0 +1,13 @@
+- name: 张三
+  avatar: https://avatars.githubusercontent.com/u/xxx?s=100
+  role: 组长
+  email: zhangsan@example.com
+  github: zhangsan
+  description: 主要研究 NLP 方向，负责周报整理。
+
+- name: 李四
+  avatar: https://avatars.githubusercontent.com/u/yyy?s=100
+  role: 成员
+  email: lisi@example.com
+  github: lisi
+  description: 关注 CV 与多模态，维护代码库。

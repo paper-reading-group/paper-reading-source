@@ -1,0 +1,39 @@
+---
+layout: layout
+---
+<div class="page-timeline">
+  <h1><%= page.title %></h1>
+  <%
+    const posts = site.posts.sort('date', -1);
+    let currentYear = '';
+    let currentMonth = '';
+  %>
+  <div class="timeline">
+    <% posts.forEach(function(post) { %>
+      <%
+        const year = post.date.format('YYYY');
+        const month = post.date.format('MMMM YYYY');
+      %>
+      <% if (year !== currentYear) {
+           currentYear = year;
+           currentMonth = ''; %>
+        <h2 class="timeline-year"><%= year %></h2>
+      <% } %>
+      <% if (month !== currentMonth) {
+           currentMonth = month; %>
+        <h3 class="timeline-month"><%= month %></h3>
+      <% } %>
+      <div class="timeline-item">
+        <span class="timeline-date"><%= post.date.format('MMM DD') %></span>
+        <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+        <% if (post.categories && post.categories.length) { %>
+          <span class="timeline-category">
+            <% post.categories.forEach(function(cat) { %>
+              <%= cat.name %>
+            <% }) %>
+          </span>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</div>
