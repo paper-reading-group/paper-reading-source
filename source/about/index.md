@@ -251,6 +251,15 @@ git add .
 git commit -m "新增论文精读：论文标题"
 
 git push
+
+```
+
+执行：
+
+```bash
+hexo clean
+hexo g
+hexo d
 ```
 
 上传成功后，网站会自动更新。
