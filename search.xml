@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>你的论文标题</title>
-    <url>/2026/05/13/papers_titles/</url>
-    <content><![CDATA[<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/MambaVision架构/">MambaVision架构</a></li></ul>]]></content>
-      <categories>
-        <category>论文精读</category>
-      </categories>
-      <tags>
-        <tag>NLP</tag>
-        <tag>Transformer</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MambaVision架构</title>
     <url>/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/</url>
-    <content><![CDATA[<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p>![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png)</p>
+    <content><![CDATA[<p><a href="paper.pdf">原论文 PDF</a></p>
+<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p>![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png)</p>
 <p>可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解</p>
 <h2 id="二-针对各个模块的分析"><a href="#二-针对各个模块的分析" class="headerlink" title="二.针对各个模块的分析"></a>二.针对各个模块的分析</h2><p>不同参数量的里面的模块数量是不同</p>
 <table>
@@ -114,10 +103,22 @@
         <category>论文精读</category>
       </categories>
       <tags>
-        <tag>Transformer</tag>
         <tag>CV</tag>
         <tag>Mamba</tag>
         <tag>SSM</tag>
+        <tag>Transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>你的论文标题</title>
+    <url>/2026/05/13/papers_titles/</url>
+    <content><![CDATA[<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/MambaVision架构/">MambaVision架构</a></li></ul>]]></content>
+      <categories>
+        <category>论文精读</category>
+      </categories>
+      <tags>
+        <tag>Transformer</tag>
+        <tag>NLP</tag>
       </tags>
   </entry>
 </search>
