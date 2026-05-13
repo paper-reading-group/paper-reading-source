@@ -5,10 +5,10 @@ tags: [CV,Mamba,SSM,Transformer]
 author: Ali Hatamizadeh, Jan Kautz
 reader: 康怡楠
 topic: 计算机视觉中的通用骨干网络设计
-cover: cover.png
+cover: cover.jpg
 ---
 
-[原论文 PDF](paper.pdf)
+![原论文 PDF](paper.pdf)
 
 ## 一.论文原本的架构
 
@@ -29,7 +29,7 @@ cover: cover.png
 | MambaVision-Base (B)  | 3          | 4          | 18         | 3          |
 | MambaVision-Large (L) | 3          | 4          | 24         | 3          |
 
-## **1>**stem
+## 1. stem
 
 茎秆层主要的目的是将原本的RGB通道图转化为后续处理的张量，同时完成下采样
 
@@ -69,7 +69,7 @@ def __init__(self, in_chans=3, in_dim=64, dim=96):
 - Base: 128
 - Large: 196
 
-## **2>**ConVBlock
+## 2. ConVBlock
 
 stem将图片转化为张量的形式之后就进行多次卷积以及总计两次降采样，这个地方比较常见，所以不多阐述，代码展示
 
@@ -107,11 +107,11 @@ stem将图片转化为张量的形式之后就进行多次卷积以及总计两�
         return x
 ```
 
-## 3>MambaMixer+MLP
+## 3. MambaMixer+MLP
 
 这个是主要的框架构成部分
 
-#### 一·对于原本数据的处理
+#### （1）对于原本数据的处理
 
 输入进来的(B,L,D):L对应视觉图的H和W转为长度为L的向量（不为H*W），D为维度数，实际上对应的就是原本的通道数，经过多次卷积这个地方已经变为了512
 
@@ -125,7 +125,7 @@ args:window_size:一个窗口的大小
 
 这个时候就可以进入mambamix进行处理
 
-#### 二·Mambamixer
+#### （2）Mambamixer
 
 ##### 初始化阶段
 
@@ -202,7 +202,7 @@ for t in range(196):
 
 经过了数次的Mamba之后就进入了MLP，这个使用的是timm库中导入的标准的全连接经过两层全连接以及Gelu激活，维度并没发生变化
 
-## 4>自注意力
+## 4.自注意力
 
 这个设计的和原本的self attention相同，只不过原本的是针对全局的做自注意力，这个是针对分的窗口来做，所以不在赘述
 
