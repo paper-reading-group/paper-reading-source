@@ -6,7 +6,7 @@
   <link href="https://paper-reading-group.github.io/atom.xml" rel="self"/>
   <subtitle>记录与分享 · 前沿论文</subtitle>
   <title>论文精读</title>
-  <updated>2026-05-13T12:23:21.971Z</updated>
+  <updated>2026-05-13T12:47:23.118Z</updated>
   <entry>
     <category term="论文精读" scheme="https://paper-reading-group.github.io/categories/papers/"/>
     <category term="Transformer" scheme="https://paper-reading-group.github.io/tags/Transformer/"/>
@@ -16,12 +16,12 @@
     </content>
     <id>https://paper-reading-group.github.io/2026/05/13/papers_titles/</id>
     <link href="https://paper-reading-group.github.io/2026/05/13/papers_titles/"/>
-    <published>2026-05-13T12:23:21.970Z</published>
+    <published>2026-05-13T12:47:23.118Z</published>
     <summary>
       <![CDATA[<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/MambaVision架构/">MambaVision架构</a></li></ul>]]>
     </summary>
     <title>你的论文标题</title>
-    <updated>2026-05-13T12:23:21.971Z</updated>
+    <updated>2026-05-13T12:47:23.118Z</updated>
   </entry>
   <entry>
     <category term="论文精读" scheme="https://paper-reading-group.github.io/categories/papers/"/>
@@ -34,12 +34,12 @@
     </content>
     <id>https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/</id>
     <link href="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/"/>
-    <published>2026-05-13T12:23:21.965Z</published>
+    <published>2026-05-13T12:47:23.114Z</published>
     <summary>
       <![CDATA[<p><img data-src="/paper.pdf" alt="原论文 PDF"></p>
 <h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构<]]>
     </summary>
     <title>MambaVision架构</title>
-    <updated>2026-05-13T12:23:21.965Z</updated>
+    <updated>2026-05-13T12:47:23.114Z</updated>
   </entry>
 </feed>
