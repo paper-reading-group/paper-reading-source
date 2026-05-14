@@ -217,7 +217,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/13/papers_titles/">
+    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/14/papers_titles/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.png">
@@ -235,7 +235,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/13/papers_titles/" class="post-title-link" itemprop="url">你的论文标题</a>
+          <a href="/2026/05/14/papers_titles/" class="post-title-link" itemprop="url">你的论文标题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -246,7 +246,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2026-05-13 20:47:23" itemprop="dateCreated datePublished" datetime="2026-05-13T20:47:23+08:00">2026-05-13</time>
+      <time title="Created: 2026-05-14 10:47:55" itemprop="dateCreated datePublished" datetime="2026-05-14T10:47:55+08:00">2026-05-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -283,7 +283,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/MambaVision架构/">MambaVision架构</a></li></ul>
+          <hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/14/MambaVision架构/">MambaVision架构</a></li></ul>
       
     </div>
 
@@ -309,7 +309,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.png">
@@ -327,7 +327,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/05/13/MambaVision%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">MambaVision架构</a>
+          <a href="/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">MambaVision架构</a>
         </h2>
 
         <div class="post-meta-container">
@@ -338,7 +338,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2026-05-13 20:47:23" itemprop="dateCreated datePublished" datetime="2026-05-13T20:47:23+08:00">2026-05-13</time>
+      <time title="Created: 2026-05-14 10:47:55" itemprop="dateCreated datePublished" datetime="2026-05-14T10:47:55+08:00">2026-05-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -375,8 +375,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img data-src="/paper.pdf" alt="原论文 PDF"></p>
-<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p>![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png)</p>
+          <p><a href="./paper.pdf">原论文 PDF</a></p>
+<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p><img data-src="/./%E5%9B%BE%E4%B8%80.png" alt="流程图"></p>
 <p>可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解</p>
 <h2 id="二-针对各个模块的分析"><a href="#二-针对各个模块的分析" class="headerlink" title="二.针对各个模块的分析"></a>二.针对各个模块的分析</h2><p>不同参数量的里面的模块数量是不同</p>
 <table>
@@ -449,7 +449,7 @@
 <p>同时设计了一维的深度卷积来提取特征</p>
 <h5 id="前向传播阶段"><a href="#前向传播阶段" class="headerlink" title="前向传播阶段"></a>前向传播阶段</h5><p>1.首先将上面输入的(B,L,D)进行线性投影变换，得到的是(B,L,2D)，为了适配卷积，将维度转化维(B,2D,L),再使用chunk进行分割,分为两个(B,D,L),相当于对于双通道的差分</p>
 <p>2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）</p>
-<p><img data-src="C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260410153127015.png" alt="image-20260410153127015"></p>
+<p><img data-src="/./%E5%9B%BE%E4%BA%8C.png" alt="image"></p>
 <p>3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的</p>
 <p><img data-src="C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png" alt="image-20260411192233518"></p>
 <p>这个是ssm的公式，其中xt为当前输入，ht为隐藏状态，并且ABCD都在训练不断训练，最后固定的参数，对于不同的输入，使用相同的记忆权重处理，而mamba的选择性ssm的BC dt[t]怎是由输入的xt动态形成的，训练的是生成BC的权重，而不直接生成,这个就是选择性ssm强的地方</p>
@@ -470,7 +470,7 @@
 <p>经过了数次的Mamba之后就进入了MLP，这个使用的是timm库中导入的标准的全连接经过两层全连接以及Gelu激活，维度并没发生变化</p>
 <h2 id="4-自注意力"><a href="#4-自注意力" class="headerlink" title="4.自注意力"></a>4.自注意力</h2><p>这个设计的和原本的self attention相同，只不过原本的是针对全局的做自注意力，这个是针对分的窗口来做，所以不在赘述</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其中stage1,2都为CNN进行快速提取特征，而3,4都采用了相同的基本结构，只是在层数设计上有所不同</p>
-<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/13/papers_titles/">你的论文标题</a></li></ul>
+<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/14/papers_titles/">你的论文标题</a></li></ul>
       
     </div>
 
