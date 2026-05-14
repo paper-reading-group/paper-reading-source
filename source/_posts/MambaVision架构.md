@@ -5,14 +5,14 @@ tags: [CV,Mamba,SSM,Transformer]
 author: Ali Hatamizadeh, Jan Kautz
 reader: 康怡楠
 topic: 计算机视觉中的通用骨干网络设计
-cover: cover.jpg
+cover: /_posts/MambaVision架构/cover.jpg
 ---
 
-![原论文 PDF](paper.pdf)
+[原论文 PDF](./paper.pdf)
 
 ## 一.论文原本的架构
 
-![屏幕截图 2026-04-09 200206](C:\Users\kangy\Pictures\Screenshots\屏幕截图 2026-04-09 200206.png)
+![流程图](./图一.png)
 
 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解
 
@@ -141,7 +141,7 @@ args:window_size:一个窗口的大小
 
 2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）
 
-![image-20260410153127015](C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260410153127015.png)
+![image](./图二.png)
 
 3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的
 
