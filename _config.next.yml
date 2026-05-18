@@ -7,11 +7,11 @@ darkmode: true
 # 菜单导航
 menu:
   home: / || fa fa-home
-  papers: /categories/papers/ || fa fa-file-alt
-  topics: /topics || fa fa-layer-group
+  papers: /categories/论文精读/ || fa fa-file-alt   # 可以单独指向某个分类
+  topics: /categories/ || fa fa-layer-group        # 指向研究方向总页面
+  tags: /tags/ || fa fa-tags
   members: /members || fa fa-users
   timeline: /timeline || fa fa-stream
-  tags: /tags || fa fa-tags
   about: /about || fa fa-info-circle
 
 # 侧边栏

@@ -1,11 +1,11 @@
 ---
 title: MambaVision架构
-categories: 论文精读
+data: 2026-05-13
+categories: [计算机视觉, 论文精读]
 tags: [CV,Mamba,SSM,Transformer]
-author: Ali Hatamizadeh, Jan Kautz
-reader: 康怡楠
-topic: 计算机视觉中的通用骨干网络设计
-cover: /_posts/MambaVision架构/cover.jpg
+author: "Ali Hatamizadeh, Jan Kautz"
+reader: "康怡楠"
+cover: cover.jpg
 ---
 
 [原论文 PDF](./paper.pdf)

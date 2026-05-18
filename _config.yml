@@ -66,8 +66,16 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
-  论文精读: papers
+  自然语言处理: nlp
+  计算机视觉: cv
+  机器学习: ml
+
 tag_map:
+  Transformer: transformer
+  NLP: nlp
+  CV: cv
+  Mamba: mamba
+  SSM: ssm
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
@@ -111,3 +119,7 @@ search:
   field: post
   format: html
   limit: 10000
+
+marked:
+  prependRoot: true
+  postAsset: true
