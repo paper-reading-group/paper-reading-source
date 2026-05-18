@@ -23,27 +23,27 @@
     <meta name="description" content="原论文 PDF 一.论文原本的架构 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各个模块的分析不同参数量的里面的模块数量是不同    模型版本 N1(Stage1) N2(Stage2) N3(Stage3) N4(Stage4)    Mam">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MambaVision架构">
-<meta property="og:url" content="https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:url" content="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="论文精读">
 <meta property="og:description" content="原论文 PDF 一.论文原本的架构 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各个模块的分析不同参数量的里面的模块数量是不同    模型版本 N1(Stage1) N2(Stage2) N3(Stage3) N4(Stage4)    Mam">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://paper-reading-group.github.io/%E5%9B%BE%E4%B8%80.png">
-<meta property="og:image" content="https://paper-reading-group.github.io/%E5%9B%BE%E4%BA%8C.png">
+<meta property="og:image" content="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/%E5%9B%BE%E4%B8%80.png">
+<meta property="og:image" content="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/%E5%9B%BE%E4%BA%8C.png">
 <meta property="og:image" content="c:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png">
-<meta property="article:published_time" content="2026-05-14T03:02:08.472Z">
-<meta property="article:modified_time" content="2026-05-14T03:02:08.472Z">
+<meta property="article:published_time" content="2026-05-18T13:03:40.631Z">
+<meta property="article:modified_time" content="2026-05-18T13:03:40.631Z">
 <meta property="article:tag" content="CV">
 <meta property="article:tag" content="Mamba">
 <meta property="article:tag" content="SSM">
 <meta property="article:tag" content="Transformer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://paper-reading-group.github.io/%E5%9B%BE%E4%B8%80.png">
+<meta name="twitter:image" content="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/%E5%9B%BE%E4%B8%80.png">
 
 
-<link rel="canonical" href="https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/">
+<link rel="canonical" href="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/","path":"2026/05/14/MambaVision架构/","title":"MambaVision架构"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/","path":"2026/05/18/MambaVision架构/","title":"MambaVision架构"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>MambaVision架构 | 论文精读</title>
@@ -118,7 +118,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-papers"><a href="/categories/papers/" rel="section"><i class="fa fa-file-alt fa-fw"></i>papers</a></li><li class="menu-item menu-item-topics"><a href="/topics" rel="section"><i class="fa fa-layer-group fa-fw"></i>topics</a></li><li class="menu-item menu-item-members"><a href="/members" rel="section"><i class="fa fa-users fa-fw"></i>members</a></li><li class="menu-item menu-item-timeline"><a href="/timeline" rel="section"><i class="fa fa-stream fa-fw"></i>timeline</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-info-circle fa-fw"></i>About</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-papers"><a href="/categories/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/" rel="section"><i class="fa fa-file-alt fa-fw"></i>papers</a></li><li class="menu-item menu-item-topics"><a href="/categories/" rel="section"><i class="fa fa-layer-group fa-fw"></i>topics</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-members"><a href="/members" rel="section"><i class="fa fa-users fa-fw"></i>members</a></li><li class="menu-item menu-item-timeline"><a href="/timeline" rel="section"><i class="fa fa-stream fa-fw"></i>timeline</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-info-circle fa-fw"></i>About</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -190,12 +190,13 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
+          <a href="/tags/">
         <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
@@ -228,7 +229,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.png">
@@ -257,7 +258,7 @@
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2026-05-14 11:02:08" itemprop="dateCreated datePublished" datetime="2026-05-14T11:02:08+08:00">2026-05-14</time>
+      <time title="Created: 2026-05-18 21:03:40" itemprop="dateCreated datePublished" datetime="2026-05-18T21:03:40+08:00">2026-05-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -265,7 +266,11 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/papers/" itemprop="url" rel="index"><span itemprop="name">论文精读</span></a>
+          <a href="/categories/cv/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/cv/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">论文精读</span></a>
         </span>
     </span>
 
@@ -294,7 +299,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><a href="./paper.pdf">原论文 PDF</a></p>
-<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p><img data-src="/./%E5%9B%BE%E4%B8%80.png" alt="流程图"></p>
+<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p><img data-src="/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/%E5%9B%BE%E4%B8%80.png" alt="流程图"></p>
 <p>可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解</p>
 <h2 id="二-针对各个模块的分析"><a href="#二-针对各个模块的分析" class="headerlink" title="二.针对各个模块的分析"></a>二.针对各个模块的分析</h2><p>不同参数量的里面的模块数量是不同</p>
 <table>
@@ -367,7 +372,7 @@
 <p>同时设计了一维的深度卷积来提取特征</p>
 <h5 id="前向传播阶段"><a href="#前向传播阶段" class="headerlink" title="前向传播阶段"></a>前向传播阶段</h5><p>1.首先将上面输入的(B,L,D)进行线性投影变换，得到的是(B,L,2D)，为了适配卷积，将维度转化维(B,2D,L),再使用chunk进行分割,分为两个(B,D,L),相当于对于双通道的差分</p>
 <p>2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）</p>
-<p><img data-src="/./%E5%9B%BE%E4%BA%8C.png" alt="image"></p>
+<p><img data-src="/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/%E5%9B%BE%E4%BA%8C.png" alt="image"></p>
 <p>3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的</p>
 <p><img data-src="C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png" alt="image-20260411192233518"></p>
 <p>这个是ssm的公式，其中xt为当前输入，ht为隐藏状态，并且ABCD都在训练不断训练，最后固定的参数，对于不同的输入，使用相同的记忆权重处理，而mamba的选择性ssm的BC dt[t]怎是由输入的xt动态形成的，训练的是生成BC的权重，而不直接生成,这个就是选择性ssm强的地方</p>
@@ -388,7 +393,7 @@
 <p>经过了数次的Mamba之后就进入了MLP，这个使用的是timm库中导入的标准的全连接经过两层全连接以及Gelu激活，维度并没发生变化</p>
 <h2 id="4-自注意力"><a href="#4-自注意力" class="headerlink" title="4.自注意力"></a>4.自注意力</h2><p>这个设计的和原本的self attention相同，只不过原本的是针对全局的做自注意力，这个是针对分的窗口来做，所以不在赘述</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其中stage1,2都为CNN进行快速提取特征，而3,4都采用了相同的基本结构，只是在层数设计上有所不同</p>
-<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/14/papers_titles/">你的论文标题</a></li></ul>
+<hr><h3>📎 相关论文推荐</h3><ul><li><a href="2026/05/18/papers_titles/">你的论文标题</a></li></ul>
     </div>
 
     
@@ -405,7 +410,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="https://paper-reading-group.github.io/2026/05/14/MambaVision%E6%9E%B6%E6%9E%84/" title="MambaVision架构">https://paper-reading-group.github.io/2026/05/14/MambaVision架构/</a>
+      <a href="https://paper-reading-group.github.io/2026/05/18/MambaVision%E6%9E%B6%E6%9E%84/" title="MambaVision架构">https://paper-reading-group.github.io/2026/05/18/MambaVision架构/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -414,10 +419,10 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/CV/" rel="tag"># CV</a>
-              <a href="/tags/Mamba/" rel="tag"># Mamba</a>
-              <a href="/tags/SSM/" rel="tag"># SSM</a>
-              <a href="/tags/Transformer/" rel="tag"># Transformer</a>
+              <a href="/tags/transformer/" rel="tag"># Transformer</a>
+              <a href="/tags/cv/" rel="tag"># CV</a>
+              <a href="/tags/mamba/" rel="tag"># Mamba</a>
+              <a href="/tags/ssm/" rel="tag"># SSM</a>
           </div>
 
         
@@ -426,7 +431,7 @@
             <div class="post-nav-item">
             </div>
             <div class="post-nav-item">
-                <a href="/2026/05/14/papers_titles/" rel="next" title="你的论文标题">
+                <a href="/2026/05/18/papers_titles/" rel="next" title="你的论文标题">
                   你的论文标题 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
