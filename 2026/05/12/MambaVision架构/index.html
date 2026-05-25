@@ -42,11 +42,11 @@
 <meta property="og:title" content="MambaVision架构">
 <meta property="og:url" content="https://paper-reading-group.github.io/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="论文精读">
-<meta property="og:description" content="一.论文原本的架构  可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各个模块的分析不同参数量的里面的模块数量是不同    模型版本 N1(Stage1) N2(Stage2) N3(Stage3) N4(Stage4)    MambaVis">
+<meta property="og:description" content="原论文 PDF 一.论文原本的架构 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解 二.针对各个模块的分析不同参数量的里面的模块数量是不同    模型版本 N1(Stage1) N2(Stage2) N3(Stage3) N4(Stage4)    Mam">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2026-05-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-25T10:37:04.659Z">
+<meta property="article:modified_time" content="2026-05-25T12:10:57.367Z">
 <meta property="article:tag" content="CV">
 <meta property="article:tag" content="Mamba">
 <meta property="article:tag" content="SSM">
@@ -2355,7 +2355,7 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
     root: '/',
     debug: false,
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1660614606622/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1779705437226),
+    lastupdate: new Date(1779711071326),
     cdn: {
       izitoast_css: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/css/iziToast.min.css',
       izitoast_js: 'https://cdn.bootcdn.net/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
@@ -2402,7 +2402,7 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
 </script>
 
   
-    <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"论文精读","url":"https://paper-reading-group.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/","sameAs":["https://github.com/volantis-x"],"description":"每月论文精读笔记"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://paper-reading-group.github.io/","name":"论文精读"}},{"@type":"ListItem","position":2,"item":{"@id":"https://paper-reading-group.github.io/categories/cv/","name":"计算机视觉"}},{"@type":"ListItem","position":3,"item":{"@id":"https://paper-reading-group.github.io/2026/05/12/MambaVision架构/","name":"MambaVision架构"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"论文精读","url":"https://paper-reading-group.github.io/","keywords":"论文,精读,机器学习,深度学习","description":"每月论文精读笔记","author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/","description":"每月论文精读笔记"},"publisher":{"@type":"Organization","name":"论文精读","url":"https://paper-reading-group.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://paper-reading-group.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MambaVision架构","description":"每月论文精读笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://paper-reading-group.github.io/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/"},"author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/"},"publisher":{"@type":"Organization","name":"论文精读","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://paper-reading-group.github.io/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/","wordCount":0,"datePublished":"2026-05-12T16:00:00.000Z","dateModified":"2026-05-25T10:37:04.659Z","articleSection":"计算机视觉","keywords":"CV,Mamba,SSM,Transformer","image":{"@type":"ImageObject","url":"/2026/05/12/MambaVision架构/cover.jpg","width":1024,"height":768}}]</script>
+    <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"论文精读","url":"https://paper-reading-group.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/","sameAs":["https://github.com/volantis-x"],"description":"每月论文精读笔记"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://paper-reading-group.github.io/","name":"论文精读"}},{"@type":"ListItem","position":2,"item":{"@id":"https://paper-reading-group.github.io/categories/cv/","name":"计算机视觉"}},{"@type":"ListItem","position":3,"item":{"@id":"https://paper-reading-group.github.io/2026/05/12/MambaVision架构/","name":"MambaVision架构"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"论文精读","url":"https://paper-reading-group.github.io/","keywords":"论文,精读,机器学习,深度学习","description":"每月论文精读笔记","author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/","description":"每月论文精读笔记"},"publisher":{"@type":"Organization","name":"论文精读","url":"https://paper-reading-group.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://paper-reading-group.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"MambaVision架构","description":"每月论文精读笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://paper-reading-group.github.io/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/"},"author":{"@type":"Person","name":null,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://paper-reading-group.github.io/"},"publisher":{"@type":"Organization","name":"论文精读","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1660614606622/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://paper-reading-group.github.io/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/","wordCount":0,"datePublished":"2026-05-12T16:00:00.000Z","dateModified":"2026-05-25T12:10:57.367Z","articleSection":"计算机视觉","keywords":"CV,Mamba,SSM,Transformer","image":{"@type":"ImageObject","url":"/2026/05/12/MambaVision架构/cover.jpg","width":1024,"height":768}}]</script>
   
   <!-- import head_end begin -->
   <!-- import head_end end -->
@@ -2759,7 +2759,7 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
       <!-- see: /layout/_partial/scripts/_ctrl.ejs -->
       <div id="half" class='cover-wrapper post dock' style="display: ;">
         
-  <div class='cover-bg lazyload placeholder' data-bg="/images/volantis/hero-home.svg"></div>
+  <div class='cover-bg lazyload placeholder' data-bg="https://gcore.jsdelivr.net/gh/MHG-LAB/cron@gh-pages/bing/bing.jpg"></div>
 
 <div class='cover-body'>
   <div class='top'>
@@ -2892,10 +2892,8 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <img src="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" class="lazyload" data-srcset="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class title="流程图">
-
-<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><img src="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" class="lazyload" data-srcset="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class title="流程图">
-
+    <p><a href="./paper.pdf">原论文 PDF</a></p>
+<h2 id="一-论文原本的架构"><a href="#一-论文原本的架构" class="headerlink" title="一.论文原本的架构"></a>一.论文原本的架构</h2><p><img src="/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" class="lazyload" data-srcset="/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/fig1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="流程图"></p>
 <p>可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解</p>
 <h2 id="二-针对各个模块的分析"><a href="#二-针对各个模块的分析" class="headerlink" title="二.针对各个模块的分析"></a>二.针对各个模块的分析</h2><p>不同参数量的里面的模块数量是不同</p>
 <table>
@@ -2968,8 +2966,7 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
 <p>同时设计了一维的深度卷积来提取特征</p>
 <h5 id="前向传播阶段"><a href="#前向传播阶段" class="headerlink" title="前向传播阶段"></a>前向传播阶段</h5><p>1.首先将上面输入的(B,L,D)进行线性投影变换，得到的是(B,L,2D)，为了适配卷积，将维度转化维(B,2D,L),再使用chunk进行分割,分为两个(B,D,L),相当于对于双通道的差分</p>
 <p>2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）</p>
-<img src="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig2.png" class="lazyload" data-srcset="/.io//05/12/MambaVision%E6%9E%B6%E6%9E%84/fig2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class title="模块示意图">
-
+<p><img src="/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/fig2.png" class="lazyload" data-srcset="/2026/05/12/MambaVision%E6%9E%B6%E6%9E%84/fig2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="模块示意图"></p>
 <p>3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的</p>
 <p>这个是ssm的公式，其中xt为当前输入，ht为隐藏状态，并且ABCD都在训练不断训练，最后固定的参数，对于不同的输入，使用相同的记忆权重处理，而mamba的选择性ssm的BC dt[t]怎是由输入的xt动态形成的，训练的是生成BC的权重，而不直接生成,这个就是选择性ssm强的地方</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">self</span>.x_proj = nn.Linear(</span><br><span class="line">            <span class="variable language_">self</span>.d_inner//<span class="number">2</span>, <span class="variable language_">self</span>.dt_rank + <span class="variable language_">self</span>.d_state * <span class="number">2</span>, bias=<span class="literal">False</span>, **factory_kwargs</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
@@ -3013,7 +3010,7 @@ volantis.pjax.send(volantis.clearAllTimers,"clearAllTimers");
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-05-25T10:37:04+00:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-05-25T12:10:57+00:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2026年5月25日</p>
