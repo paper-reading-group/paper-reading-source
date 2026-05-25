@@ -6,13 +6,11 @@ darkmode: true
 
 # 菜单导航
 menu:
-  home: / || fa fa-home
-  papers: /categories/论文精读/ || fa fa-file-alt   # 可以单独指向某个分类
-  topics: /categories/ || fa fa-layer-group        # 指向研究方向总页面
-  tags: /tags/ || fa fa-tags
-  members: /members || fa fa-users
-  timeline: /timeline || fa fa-stream
-  about: /about || fa fa-info-circle
+  Home: / || fa fa-home
+  Papers: /papers/ || fa fa-file-alt
+  Topics: /categories/ || fa fa-layer-group
+  Tags: /tags/ || fa fa-tags
+  About: /about/ || fa fa-info-circle
 
 # 侧边栏
 sidebar:
@@ -52,7 +50,7 @@ toc:
 
 # 头像
 avatar:
-  url: /images/logo.png
+  url: /images/avatar.gif
   rounded: true
 
 # 数学公式

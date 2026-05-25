@@ -11,7 +11,7 @@ subtitle: 记录与分享 · 前沿论文
 description: 每月论文精读笔记
 keywords: 论文,精读,机器学习,深度学习
 author: 
-language: en
+language: zh-CN
 timezone: 'Asia/Chongqing'
 
 # URL
@@ -104,7 +104,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: volantis
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -119,6 +119,40 @@ search:
   field: post
   format: html
   limit: 10000
+
+jsonContent:
+  meta: false
+  file: content.json
+  pages:
+    title: true
+    permalink: true
+    text: true
+    date: false
+    updated: false
+    comments: false
+    path: false
+    link: false
+    excerpt: false
+    keywords: false
+    raw: false
+    content: false
+    author: false
+  posts:
+    title: true
+    permalink: true
+    text: true
+    date: true
+    updated: false
+    comments: false
+    path: false
+    link: false
+    excerpt: false
+    keywords: false
+    raw: false
+    content: false
+    author: false
+    categories: true
+    tags: true
 
 marked:
   prependRoot: true

@@ -1,18 +1,19 @@
 ---
 title: MambaVision架构
-data: 2026-05-13
-categories: [计算机视觉, 论文精读]
+date: 2026-05-13
+categories: [计算机视觉]
+group: papers
 tags: [CV,Mamba,SSM,Transformer]
 author: "Ali Hatamizadeh, Jan Kautz"
 reader: "康怡楠"
 cover: cover.jpg
 ---
 
-[原论文 PDF](./paper.pdf)
+{% asset_img fig1.png 流程图 %}
 
 ## 一.论文原本的架构
 
-![流程图](./图一.png)
+{% asset_img fig1.png 流程图 %}
 
 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解
 
@@ -35,7 +36,7 @@ cover: cover.jpg
 
 src中的实现
 
-```
+```python
 def __init__(self, in_chans=3, in_dim=64, dim=96):
         """
         Args:
@@ -73,7 +74,7 @@ def __init__(self, in_chans=3, in_dim=64, dim=96):
 
 stem将图片转化为张量的形式之后就进行多次卷积以及总计两次降采样，这个地方比较常见，所以不多阐述，代码展示
 
-```
+```python
 
     def __init__(self, dim,
                  drop_path=0.,
@@ -141,21 +142,20 @@ args:window_size:一个窗口的大小
 
 2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）
 
-![image](./图二.png)
+{% asset_img fig2.png 模块示意图 %}
 
 3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的
 
-![image-20260411192233518](C:\Users\kangy\AppData\Roaming\Typora\typora-user-images\image-20260411192233518.png)
 
 这个是ssm的公式，其中xt为当前输入，ht为隐藏状态，并且ABCD都在训练不断训练，最后固定的参数，对于不同的输入，使用相同的记忆权重处理，而mamba的选择性ssm的BC dt[t]怎是由输入的xt动态形成的，训练的是生成BC的权重，而不直接生成,这个就是选择性ssm强的地方
 
-```
+```python
 self.x_proj = nn.Linear(
             self.d_inner//2, self.dt_rank + self.d_state * 2, bias=False, **factory_kwargs
         )
 ```
 
-```
+```python
 x_dbl = self.x_proj(rearrange(x, "b d l -> (b l) d"))
         dt, B, C =  torch.split(x_dbl, [self.dt_rank, self.d_state, self.d_state], dim=-1)
 ```
@@ -164,7 +164,7 @@ x_dbl = self.x_proj(rearrange(x, "b d l -> (b l) d"))
 
 维度数，也相当于b,c的大小
 
-```
+```python
 y = selective_scan_fn(x, 
                               dt, 
                               A, 
@@ -181,7 +181,7 @@ y = selective_scan_fn(x,
 
 这个主要做的就是从一个序列先进行离散化，然后一个位置一个位置进行扫描，然后每个位置都会有一个ht，
 
-```
+```python
 for t in range(196):
     # Step 1: 处理 dt
     dt_t = F.softplus(dt[:, :, t] + bias)  # (1, 256)

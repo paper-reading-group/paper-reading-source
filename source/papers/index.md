@@ -1,8 +1,10 @@
 ---
-title: Papers
+title: 论文
 date: 2026-05-11
-type: page
+layout: list
+group: papers
+index: true
 comments: false
-layout: page
+sidebar: [category, tagcloud]
 ---
-<meta http-equiv="refresh" content="0; url=/categories/论文精读/">
+收录论文精读笔记、论文封面与摘要，便于按时间和主题浏览。

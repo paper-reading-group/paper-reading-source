@@ -1,0 +1,351 @@
+# ============================================================
+# Volantis 6.0 主题配置文件
+# 文档: https://volantis.js.org/
+# ============================================================
+
+debug: false
+
+# -----------------------------------------------------------
+# 导航栏
+# -----------------------------------------------------------
+navbar:
+  visiable: always
+  logo:
+    img: ''
+    title: 论文精读小组
+  menu:
+    - name: 首页
+      icon: fa-solid fa-house
+      url: /
+    - name: 论文
+      icon: fa-solid fa-file-lines
+      url: papers/
+    - name: 方向
+      icon: fa-solid fa-layer-group
+      url: categories/
+    - name: 标签
+      icon: fa-solid fa-tags
+      url: tags/
+    - name: 关于
+      icon: fa-solid fa-circle-info
+      url: about/
+    - name: 更多
+      icon: fa-solid fa-ellipsis
+      rows:
+        - name: 成员
+          icon: fa-solid fa-users
+          url: members/
+        - name: 时间线
+          icon: fa-solid fa-stream
+          url: timeline/
+  search: 搜索论文、标签、方向
+
+# -----------------------------------------------------------
+# 封面 (首页大图)
+# -----------------------------------------------------------
+cover:
+  height_scheme: full
+  layout_scheme: dock
+  display:
+    home: true
+    archive: false
+    others: false
+  background: /images/volantis/hero-home.svg
+  title: 论文精读小组
+  subtitle: 按论文封面、研究方向与标签组织内容，面向桌面端阅读与整理
+  search: 搜索论文标题、主题标签或研究方向
+  features:
+    - name: 论文
+      img: /images/volantis/papers-card.svg
+      url: /papers/
+    - name: 方向
+      img: /images/volantis/topics-card.svg
+      url: /categories/
+    - name: 标签
+      img: /images/volantis/tags-card.svg
+      url: /tags/
+    - name: 关于
+      img: /images/volantis/about-card.svg
+      url: /about/
+
+# -----------------------------------------------------------
+# 文章列表/文章页
+# -----------------------------------------------------------
+article:
+  preview:
+    scheme: landscape
+    auto_title: true
+    auto_excerpt: true
+    hide_excerpt: false
+    line_style: solid
+    author: false
+    readmore: always
+  body:
+    top_meta: [category, date]
+    bottom_meta: [updated, tags, share]
+
+# -----------------------------------------------------------
+# 侧边栏 (核心修复：必须包含 widgets)
+# -----------------------------------------------------------
+sidebar:
+  # 默认显示的小工具列表（必须存在，否则报错）
+  widgets: [category, tagcloud]
+
+  # 页面侧边栏（如果只想让 page 显示部分工具，可保留）
+  for_page: [blogger, category, tagcloud, music]
+  # 文章侧边栏
+  for_post: [toc, blogger, category, tagcloud]
+
+  # 小工具库定义
+  widget_library:
+    music:
+      class: music
+      server: netease # 支持 netease, tencent, kugou 等
+      type: playlist
+      id: '7556759038' # 你的歌单 ID
+    blogger:
+      class: blogger
+      display: [desktop]
+      header:
+        icon: fa-solid fa-user
+        title: 作者
+        url: /about/
+    category:
+      class: category
+      display: [desktop]
+      header:
+        icon: fa-solid fa-folder-open
+        title: 研究方向
+        url: /categories/
+    tagcloud:
+      class: tagcloud
+      display: [desktop]
+      header:
+        icon: fa-solid fa-tags
+        title: 标签导航
+        url: /tags/
+      min_font: 15
+      max_font: 15
+      color: false
+    my_talk:
+      class: page
+      header:
+        icon: fa-solid fa-comment
+        title: 闲言碎语
+      pid: talks # 对应 source/talks/index.md 的 pid
+
+# -----------------------------------------------------------
+# 插件/功能开关
+# -----------------------------------------------------------
+plugins:
+  fontawesome: true
+  globalJquery: false
+  preload:
+    enable: true
+    service: flying_pages
+  lazyload:
+    enable: true
+    onlypost: false
+    blurIn: true
+  code_highlight: highlightjs
+  highlightjs:
+    copy_code: true
+  pjax:
+    enable: true
+    cover: true
+    timeout: 900
+  pace:
+    enable: true
+    color: blue
+    theme: minimal
+  darkmode:
+    enable: false
+
+# 搜索
+search:
+  enable: true
+  service: hexo
+
+# -----------------------------------------------------------
+# 自定义样式
+# -----------------------------------------------------------
+custom_css:
+  max_width: 1320px
+  navbar:
+    height: 68px
+    width: max
+    effect: [shadow, floatable, blur]
+  sidebar:
+    effect: [shadow, floatable, blur]
+  body:
+    effect: [shadow, floatable, blur]
+    text_align:
+      h1: left
+      h2: left
+      h3: left
+      h4: left
+      p: justify
+  border_radius:
+    card: 18px
+    searchbar: 999px
+    button: 999px
+  fontsize:
+    root: 16px
+    h2: 1.6rem
+    h3: 1.25rem
+  fontfamily:
+    logofont:
+      fontfamily: '"Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial'
+      name: Varela Round
+      url: volantis-static/media/fonts/VarelaRound/VarelaRound-Regular.ttf
+      weight: normal
+      style: normal
+    bodyfont:
+      fontfamily: '"PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif'
+      name: PingFang SC
+
+# -----------------------------------------------------------
+# 配色方案
+# -----------------------------------------------------------
+color_scheme:
+  common:
+    theme: '#2563eb'
+    link: '#2563eb'
+    button: '#2563eb'
+    hover: '#7c3aed'
+    inner: '#ffffff'
+    selection: 'alpha(#2563eb, 0.16)'
+  light:
+    site_bg: '#f3f6fb'
+    site_inner: '#ffffff'
+    site_footer: '#64748b'
+    card: '#ffffff'
+    text: '#1f2937'
+    block: '#f8fafc'
+    codeblock: '#eef4ff'
+    inlinecode: '#2563eb'
+    h1: '#0f172a'
+    h2: '#111827'
+    h3: '#1f2937'
+    h4: '#334155'
+    h5: '#475569'
+    h6: '#64748b'
+    p: '#334155'
+    list: '#475569'
+    list_hl: '#0f172a'
+    meta: '#64748b'
+    copyright_bkg: '#f8fafc'
+  dark:
+    site_bd: '#0b1220'
+    site_bg: '#111827'
+    card: '#182132'
+    site_inner: '#e5e7eb'
+    site_footer: '#cbd5e1'
+    text: '#e5e7eb'
+    block: '#1f2937'
+    codeblock: '#0f172a'
+    inlinecode: '#93c5fd'
+    h1: '#ffffff'
+    h2: '#f8fafc'
+    h3: '#e5e7eb'
+    h4: '#cbd5e1'
+    h5: '#cbd5e1'
+    h6: '#94a3b8'
+    p: '#d1d5db'
+    list: '#cbd5e1'
+    list_hl: '#ffffff'
+    meta: '#94a3b8'
+    copyright_bkg: '#111827'
+    brightness: 82%
+
+inject:
+  head:
+    - <link rel="stylesheet" href="/_volantis/custom.css">
+  body:
+    home_body: source/_volantis/home_custom.html
+
+# -----------------------------------------------------------
+# 自定义文件引入
+# -----------------------------------------------------------
+custom_files:
+  style: source/_volantis/style.styl
+
+# ============================================================
+# 以下为 Volantis 常见补充配置，可按需取消注释并修改
+# ============================================================
+
+# 网站信息 (用于 SEO 及 Open Graph)
+# info:
+#   title: 论文精读小组
+#   subtitle: ''
+#   description: ''
+#   keywords:
+#     - 论文
+#     - 精读
+#   author: 你的名字
+#   avatar: /images/avatar.png
+#   favicon: /images/favicon.ico
+#   apple_touch_icon: /images/apple-touch-icon.png
+
+# 页脚
+# footer:
+#   since: 2024
+#   icon:
+#     name: fa-solid fa-heart
+#     animated: true
+#     color: '#ff4d6a'
+#   copyright: true
+#   powered: true
+#   beian:
+#     enable: false
+#     icp:
+
+# 布局设置
+# layout:
+#   home:
+#     sidebar: false
+#   archive:
+#     sidebar: false
+#   category:
+#     sidebar: true
+#   tag:
+#     sidebar: true
+#   page:
+#     sidebar: true
+#   post:
+#     sidebar: true
+
+# 评论 (例如 Valine)
+# comment:
+#   enable: false
+#   service: valine
+#   valine:
+#     appId: 
+#     appKey: 
+
+# 统计分析
+# analytics:
+#   enable: false
+#   service: baidu
+#   baidu:
+#     id: 
+
+# 打赏
+# donate:
+#   enable: false
+#   qrcode:
+#     - img: /images/wechat.png
+#       text: 微信
+#     - img: /images/alipay.png
+#       text: 支付宝
+
+# 分享
+# share:
+#   enable: false
+#   items:
+#     - name: 微博
+#       icon: fa-brands fa-weibo
+#       url: https://service.weibo.com/share/share.php?url=:url&title=:title&pic=:pic
+#     - name: Twitter
+#       icon: fa-brands fa-twitter
+#       url: https://twitter.com/intent/tweet?text=:title&url=:url

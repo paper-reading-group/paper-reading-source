@@ -1,5 +1,6 @@
 ---
 title: 标签
-type: tags
+type: "tags"
+layout: tag
 comments: false
 ---

@@ -1,20 +1,144 @@
 {% extends '_layout.njk' %}
 {% import '_macro/sidebar.njk' as sidebar_template with context %}
 
-{% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} - {{ subtitle }}{% endif %}{% endblock %}
+{% block title %}{{ site.title }}{% if site.subtitle %} - {{ site.subtitle }}{% endif %}{% endblock %}
 
-{% block class %}index posts-expand{% endblock %}
+{% block class %}index posts-expand prg-home-page{% endblock %}
 
 {% block content %}
+  {% set stats = home_stats() %}
+  {% set papers = home_papers(8) %}
+  {% set topics = home_topic_list(6) %}
+  {% set tags = home_tag_list(10) %}
 
-  {%- for post in page.posts.toArray() %}
-    {{ partial('_macro/post.njk', {post: post, is_index: true}) }}
-  {%- endfor %}
+  <div class="prg-home">
+    <section class="prg-hero-card">
+      <div class="prg-hero-copy">
+        <span class="prg-eyebrow">Paper Reading Group</span>
+        <h1>论文精读与研究方向导航</h1>
+        <p class="prg-hero-desc">
+          这里集中展示论文精读、研究方向、标签导航和站点说明，首页以图片卡片和论文封面为主，适合电脑端浏览。
+        </p>
+        <div class="prg-hero-actions">
+          <a class="prg-btn prg-btn-primary" href="{{ url_for('/papers/') }}">进入 Papers</a>
+          <a class="prg-btn prg-btn-secondary" href="{{ url_for('/categories/') }}">查看 Topics</a>
+        </div>
+        <div class="prg-hero-stats">
+          <div class="prg-stat">
+            <strong>{{ stats.papers }}</strong>
+            <span>篇论文</span>
+          </div>
+          <div class="prg-stat">
+            <strong>{{ stats.topics }}</strong>
+            <span>个方向</span>
+          </div>
+          <div class="prg-stat">
+            <strong>{{ stats.tags }}</strong>
+            <span>个标签</span>
+          </div>
+        </div>
+      </div>
+      <div class="prg-hero-visual">
+        <div class="prg-hero-image">
+          <span>首页主视觉图片位</span>
+          <small>可替换为团队图、论文拼贴图或自定义插画</small>
+        </div>
+      </div>
+    </section>
 
-  {%- include '_partials/pagination.njk' -%}
+    <section class="prg-section">
+      <div class="prg-section-head">
+        <h2>首页入口</h2>
+        <p>每个卡片都可以单独替换图片，并直接链接到对应页面。</p>
+      </div>
+      <div class="prg-entry-grid">
+        <a class="prg-entry-card prg-entry-papers" href="{{ url_for('/papers/') }}">
+          <div class="prg-entry-media"><span>图片位</span></div>
+          <h3>Papers</h3>
+          <p>进入论文精读总入口，浏览全部论文笔记与更新内容。</p>
+        </a>
+        <a class="prg-entry-card prg-entry-topics" href="{{ url_for('/categories/') }}">
+          <div class="prg-entry-media"><span>图片位</span></div>
+          <h3>Topics</h3>
+          <p>按研究方向进入内容，适合展示 CV、NLP、多模态等专题。</p>
+        </a>
+        <a class="prg-entry-card prg-entry-tags" href="{{ url_for('/tags/') }}">
+          <div class="prg-entry-media"><span>图片位</span></div>
+          <h3>Tags</h3>
+          <p>通过标签快速定位相关论文、技术路线和常见主题。</p>
+        </a>
+        <a class="prg-entry-card prg-entry-about" href="{{ url_for('/about/') }}">
+          <div class="prg-entry-media"><span>图片位</span></div>
+          <h3>About</h3>
+          <p>查看网站介绍、投稿规范、协作方式和团队使用说明。</p>
+        </a>
+      </div>
+    </section>
 
+    <section class="prg-section">
+      <div class="prg-section-head">
+        <h2>研究方向与标签</h2>
+        <p>首页先给出主要方向和常用标签，后续你可以继续补充或替换内容。</p>
+      </div>
+      <div class="prg-meta-grid">
+        <div class="prg-meta-card">
+          <h3>Topics</h3>
+          <div class="prg-chip-list">
+            {% for topic in topics %}
+              <a class="prg-chip" href="{{ url_for(topic.path) }}">{{ topic.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="prg-meta-card">
+          <h3>Popular Tags</h3>
+          <div class="prg-chip-list">
+            {% for tag in tags %}
+              <a class="prg-chip prg-chip-tag" href="{{ url_for(tag.path) }}">{{ tag.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="prg-section">
+      <div class="prg-section-head">
+        <h2>最新论文</h2>
+        <p>每篇论文卡片都支持独立封面图，未设置封面时会显示占位封面。</p>
+      </div>
+      <div class="prg-paper-grid">
+        {% for post in papers %}
+          {% set post_categories = home_post_categories(post) %}
+          {% set post_tags = home_post_tags(post) %}
+          <article class="prg-paper-card">
+            <a class="prg-paper-cover" href="{{ url_for(post.path) }}" style="background-image: linear-gradient(160deg, rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.7)), url('{{ home_cover(post) }}');">
+              <span class="prg-paper-cover-label">论文封面</span>
+            </a>
+            <div class="prg-paper-body">
+              <div class="prg-paper-taxonomy">
+                {% for category in post_categories %}
+                  <a href="{{ url_for(category.path) }}">{{ category.name }}</a>
+                {% endfor %}
+              </div>
+              <h3><a href="{{ url_for(post.path) }}">{{ post.title }}</a></h3>
+              {% if post.reader %}
+                <p class="prg-paper-reader">精读人：{{ post.reader }}</p>
+              {% endif %}
+              <p class="prg-paper-excerpt">{{ home_excerpt(post, 96) }}</p>
+              <div class="prg-paper-tags">
+                {% for tag in post_tags %}
+                  <a href="{{ url_for(tag.path) }}"># {{ tag.name }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
 {% endblock %}
 
 {% block sidebar %}
-  {{ sidebar_template.render(false) }}
+  {% if false %}
+    {{ sidebar_template.render(false) }}
+  {% endif %}
 {% endblock %}
