@@ -9,11 +9,11 @@ reader: "康怡楠"
 cover: cover.jpg
 ---
 
-{% asset_img fig1.png 流程图 %}
+[原论文 PDF](./paper.pdf)
 
 ## 一.论文原本的架构
 
-{% asset_img fig1.png 流程图 %}
+![流程图](./fig1.png)
 
 可以看出来，MambaVision是一个混合架构，优先使用CNN快速得到早期特征，提取到局部细节，然后使用改造后的mamba建模，最后使用self attention补全上下文以及长距离理解
 
@@ -142,7 +142,7 @@ args:window_size:一个窗口的大小
 
 2.接着对双分支采用深度卷积以及Silu激活函数，这个时候没有原本的Mamba的因果约束（即可以看到后面的，毕竟原本的mamba是用来做语言预测的，看到后面的也就没什么好预测的了）
 
-{% asset_img fig2.png 模块示意图 %}
+![模块示意图](./fig2.png)
 
 3.现在都激活完之后左侧要做的就是ssm，实现的是mamba的输入依赖选择性机制，而这个“ssm”和原本的ssm是不同的
 

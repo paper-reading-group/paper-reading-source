@@ -50,7 +50,7 @@ cover:
     home: true
     archive: false
     others: false
-  background: /images/volantis/hero-home.svg
+  # background: /images/volantis/hero-home.svg
   title: 论文精读小组
   subtitle: 按论文封面、研究方向与标签组织内容，面向桌面端阅读与整理
   search: 搜索论文标题、主题标签或研究方向
